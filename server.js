@@ -7,7 +7,11 @@ const speakeasy = require("speakeasy");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const cors = require('cors');
-
+app.use(cors({
+  origin: 'https://dashboard-ui-kw6h.vercel.app', // Allow only your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 const sequelize = require("./database");
 
 const User = require("./models/User");
