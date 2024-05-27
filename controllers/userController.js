@@ -135,7 +135,7 @@ exports.verifyToken = async (req, res) => {
   try {
     // Find the user by email
     const user = await User.findOne({ where: { email } });
-
+    const isAdmin = user.isAdmin;
     if (!user) {
       return res.status(404).json({ isValid: false, message: 'User not found' });
     }
@@ -152,7 +152,7 @@ exports.verifyToken = async (req, res) => {
       return res.status(401).json({ isValid: false, message: 'Invalid 2FA token' });
     }
 
-    res.json({ isValid: true });
+    res.json({ isValid: true ,isAdmin});
   } catch (error) {
     console.error('Error verifying token:', error);
     res.status(500).json({ isValid: false, message: 'Internal server error' });
